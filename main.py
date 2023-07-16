@@ -1,5 +1,6 @@
 import pygame
 import sys
+from game import Game
 
 pygame.init()
 
@@ -7,16 +8,11 @@ DARK_GREEN = (72, 163, 62)
 screen = pygame.display.set_mode((700, 700))
 pygame.display.set_caption("Black Jack")
 
-card = pygame.image.load('assets/01.png')
-card = pygame.transform.rotozoom(card, 0, 0.6)
-
-def cards(x, y):
-    screen.blit(card, (x, y))
-
-x = 380
-y = 100
-
+game = Game()
 clock = pygame.time.Clock()
+
+GAME_UPDATE = pygame.USEREVENT
+pygame.time.set_timer(GAME_UPDATE, 600)
 
 screen.fill(DARK_GREEN)
 
@@ -27,7 +23,8 @@ while running:
             pygame.quit()
             sys.exit()
 
-    cards(x, y)
+    game.player_draw_card_one(screen)
+    game.player_draw_card_two(screen)
 
     pygame.display.update()
     clock.tick(60)
