@@ -1,6 +1,15 @@
 import pygame.image
 from cardattributes import Card
 
+class FDown(Card):
+    def __init__(self):
+        super().__init__(id = 0)
+        self.card = pygame.image.load('assets/01.png')
+        self.card = pygame.transform.scale(self.card, (130, 200))
+
+    def get_surface(self):
+        return self.card.copy()
+
 class Ace(Card):
     def __init__(self):
         super().__init__(id = 1)
