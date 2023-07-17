@@ -17,6 +17,10 @@ GAME_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(GAME_UPDATE, 600)
 
 running = True
+
+game.dealer_draw_face_up(screen)
+game.dealer_draw_face_down(screen)
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -24,12 +28,11 @@ while running:
             sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                game.player_turn == False
+                game.next_card_draw(screen)
+
 
     game.player_draw_card_one(screen)
     game.player_draw_card_two(screen)
-    game.dealer_draw_face_up(screen)
-    game.dealer_draw_face_down(screen)
 
     pygame.display.update()
     clock.tick(60)

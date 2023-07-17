@@ -21,8 +21,6 @@ class Game:
         return card
 
     def get_face_down_card(self):
-        if self.player_turn == False:
-            card = random.choice(self.cards)
         card = random.choice(self.face_down)
         return card
 
@@ -42,3 +40,6 @@ class Game:
         card_surface = self.dealer_face_down_card.get_surface()
         screen.blit(card_surface, (170, 40))
 
+    def next_card_draw(self, screen):
+        card_surface = self.next_card.get_surface()
+        screen.blit(card_surface, (170, 40))
