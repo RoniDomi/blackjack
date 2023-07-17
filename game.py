@@ -1,7 +1,3 @@
-import random
-
-import pygame.image
-
 from cards import *
 
 class Game:
@@ -10,6 +6,8 @@ class Game:
                       Jack(), Queen(), King()]
         self.face_down = [FDown()]
         self.player_turn = True
+        self.dealer_card_nr = 1
+        self.player_card_nr = 2
         self.player_current_card_one = self.get_random_card()
         self.player_current_card_two = self.get_random_card()
         self.dealer_face_up_card = self.get_random_card()
@@ -38,8 +36,14 @@ class Game:
 
     def dealer_draw_face_down(self, screen):
         card_surface = self.dealer_face_down_card.get_surface()
-        screen.blit(card_surface, (170, 40))
+        screen.blit(card_surface, (160, 40))
 
-    def next_card_draw(self, screen):
+    def next_card_draw_dealer(self, screen):
         card_surface = self.next_card.get_surface()
-        screen.blit(card_surface, (170, 40))
+        screen.blit(card_surface, ((100 * self.dealer_card_nr) + 60, 40))
+        self.dealer_card_nr += 1
+
+    def next_card_draw_player(self, screen):
+        card_surface = self.next_card.get_surface()
+        screen.blit(card_surface, ((100 * self.player_card_nr) + 60, 460))
+        self.player_card_nr += 1
