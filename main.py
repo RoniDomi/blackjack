@@ -39,7 +39,6 @@ while running:
                 game.next_card_draw_player(screen)
                 game.next_card = game.get_random_card()
 
-
     title_surface = title_font.render("Press Space To Stand", True, TITLE_COLOR)
     screen.blit(title_surface, (100, 660))
     title_surface = title_font.render("Press Enter To Hit", True, TITLE_COLOR)

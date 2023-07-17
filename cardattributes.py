@@ -1,8 +1,10 @@
 import pygame.image
 
+
 class Card:
-    def __init__(self, id):
-        self.value = id
+
+    def __init__(self, value):
+        self.value = value
         self.card = {}
 
     def draw(self, screen):

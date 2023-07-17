@@ -1,5 +1,6 @@
 from cards import *
 
+
 class Game:
     def __init__(self):
         self.cards = [Ace(), Two(), Three(), Four(), Five(), Six(), Seven(), Eight(), Nine(), Ten(),
