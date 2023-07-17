@@ -23,13 +23,13 @@ while running:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN:
-            if event.type == pygame.K_SPACE:
-                game.player_turn = False
+            if event.key == pygame.K_SPACE:
+                game.player_turn == False
 
     game.player_draw_card_one(screen)
     game.player_draw_card_two(screen)
     game.dealer_draw_face_up(screen)
-    game.face_down_card(screen)
+    game.dealer_draw_face_down(screen)
 
     pygame.display.update()
     clock.tick(60)
