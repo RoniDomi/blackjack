@@ -37,9 +37,12 @@ while running:
             sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                game.next_card_draw_dealer(screen)
-                game.next_card = game.get_random_card()
-                dealer_hand_value = game.dealer_hand_value()
+                while dealer_hand_value < 21 and dealer_hand_value < player_hand_value:
+                    game.next_card_draw_dealer(screen)
+                    game.next_card = game.get_random_card()
+                    dealer_hand_value = game.dealer_hand_value()
+                    if dealer_hand_value == 17:
+                        break
             if event.key == pygame.K_RETURN:
                 game.next_card_draw_player(screen)
                 game.next_card = game.get_random_card()
@@ -49,6 +52,8 @@ while running:
     screen.blit(title_surface, (100, 660))
     title_surface = title_font.render("Press Enter To Hit", True, TITLE_COLOR)
     screen.blit(title_surface, (400, 660))
+    title_surface = title_font.render("Dealer Stand on 17", True, TITLE_COLOR)
+    screen.blit(title_surface, (400, 300))
 
     # Fill background rectangle for player hand value display
     pygame.draw.rect(screen, DARK_GREEN, (50, 350, 250, 50))
