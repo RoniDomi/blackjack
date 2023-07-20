@@ -1,286 +1,154 @@
 import pygame.image
-import random
 from cardattributes import Card
+import random
 
 
-class FDown(Card):
-    def __init__(self):
-        super().__init__(value=0)
-        self.card = pygame.image.load('assets/01.png')
+class Card(Card):
+    def __init__(self, value, image_paths):
+        super().__init__(value)
+        self.image_paths = image_paths
+        self.random_texture()
+
+    def random_texture(self):
+        self.card = pygame.image.load(random.choice(self.image_paths))
         self.card = pygame.transform.scale(self.card, (130, 200))
 
     def get_surface(self):
         return self.card.copy()
 
+    def get_value(self):
+        return self.value
+
+class FDown(Card):
+    def __init__(self):
+        super().__init__(value=0, image_paths=['assets/01.png'])
+
 
 class Ace(Card):
     def __init__(self):
-        super().__init__(value=11)
-        self.number = None
-        self.random_number = None
-        self.cards = {
-            0: pygame.transform.scale(pygame.image.load('assets/10.png'), (130, 200)),
-            1: pygame.transform.scale(pygame.image.load('assets/11.png'), (130, 200)),
-            2: pygame.transform.scale(pygame.image.load('assets/12.png'), (130, 200)),
-            3: pygame.transform.scale(pygame.image.load('assets/13.png'), (130, 200))
-        }
-
-    def random_texture(self):
-        self.random_number = random.randint(0, 3)
-        return self.random_number
-
-    def get_surface(self):
-        self.number = self.random_texture()
-        return self.cards[self.number]
+        super().__init__(value=11, image_paths=[
+            'assets/10.png',
+            'assets/11.png',
+            'assets/12.png',
+            'assets/13.png',
+        ])
 
 
 class Two(Card):
     def __init__(self):
-        super().__init__(value=2)
-        self.number = None
-        self.random_number = None
-        self.card = {
-            0: pygame.transform.scale(pygame.image.load('assets/20.png'), (130, 200)),
-            1: pygame.transform.scale(pygame.image.load('assets/21.png'), (130, 200)),
-            2: pygame.transform.scale(pygame.image.load('assets/22.png'), (130, 200)),
-            3: pygame.transform.scale(pygame.image.load('assets/23.png'), (130, 200))
-        }
-
-    def random_texture(self):
-        self.random_number = random.randint(0, 3)
-        return self.random_number
-
-    def get_surface(self):
-        self.number = self.random_texture()
-        return self.card[self.number]
+        super().__init__(value=2, image_paths=[
+            'assets/20.png',
+            'assets/21.png',
+            'assets/22.png',
+            'assets/23.png',
+        ])
 
 
 class Three(Card):
     def __init__(self):
-        super().__init__(value=3)
-        self.number = None
-        self.random_number = None
-        self.card = {
-            0: pygame.transform.scale(pygame.image.load('assets/30.png'), (130, 200)),
-            1: pygame.transform.scale(pygame.image.load('assets/31.png'), (130, 200)),
-            2: pygame.transform.scale(pygame.image.load('assets/32.png'), (130, 200)),
-            3: pygame.transform.scale(pygame.image.load('assets/33.png'), (130, 200))
-        }
-
-    def random_texture(self):
-        self.random_number = random.randint(0, 3)
-        return self.random_number
-
-    def get_surface(self):
-        self.number = self.random_texture()
-        return self.card[self.number]
+        super().__init__(value=3, image_paths=[
+            'assets/30.png',
+            'assets/31.png',
+            'assets/32.png',
+            'assets/33.png',
+        ])
 
 
 class Four(Card):
     def __init__(self):
-        super().__init__(value=4)
-        self.number = None
-        self.random_number = None
-        self.card = {
-            0: pygame.transform.scale(pygame.image.load('assets/40.png'), (130, 200)),
-            1: pygame.transform.scale(pygame.image.load('assets/41.png'), (130, 200)),
-            2: pygame.transform.scale(pygame.image.load('assets/42.png'), (130, 200)),
-            3: pygame.transform.scale(pygame.image.load('assets/43.png'), (130, 200))
-        }
-
-    def random_texture(self):
-        self.random_number = random.randint(0, 3)
-        return self.random_number
-
-    def get_surface(self):
-        self.number = self.random_texture()
-        return self.card[self.number]
+        super().__init__(value=4, image_paths=[
+            'assets/40.png',
+            'assets/41.png',
+            'assets/42.png',
+            'assets/43.png',
+        ])
 
 
 class Five(Card):
     def __init__(self):
-        super().__init__(value=5)
-        self.number = None
-        self.random_number = None
-        self.card = {
-            0: pygame.transform.scale(pygame.image.load('assets/50.png'), (130, 200)),
-            1: pygame.transform.scale(pygame.image.load('assets/51.png'), (130, 200)),
-            2: pygame.transform.scale(pygame.image.load('assets/52.png'), (130, 200)),
-            3: pygame.transform.scale(pygame.image.load('assets/53.png'), (130, 200))
-        }
-
-    def random_texture(self):
-        self.random_number = random.randint(0, 3)
-        return self.random_number
-
-    def get_surface(self):
-        self.number = self.random_texture()
-        return self.card[self.number]
+        super().__init__(value=5, image_paths=[
+            'assets/50.png',
+            'assets/51.png',
+            'assets/52.png',
+            'assets/53.png',
+        ])
 
 
 class Six(Card):
     def __init__(self):
-        super().__init__(value=6)
-        self.number = None
-        self.random_number = None
-        self.card = {
-            0: pygame.transform.scale(pygame.image.load('assets/60.png'), (130, 200)),
-            1: pygame.transform.scale(pygame.image.load('assets/61.png'), (130, 200)),
-            2: pygame.transform.scale(pygame.image.load('assets/62.png'), (130, 200)),
-            3: pygame.transform.scale(pygame.image.load('assets/63.png'), (130, 200))
-        }
-
-    def random_texture(self):
-        self.random_number = random.randint(0, 3)
-        return self.random_number
-
-    def get_surface(self):
-        self.number = self.random_texture()
-        return self.card[self.number]
+        super().__init__(value=6, image_paths=[
+            'assets/60.png',
+            'assets/61.png',
+            'assets/62.png',
+            'assets/63.png',
+        ])
 
 
 class Seven(Card):
     def __init__(self):
-        super().__init__(value=7)
-        self.number = None
-        self.random_number = None
-        self.card = {
-            0: pygame.transform.scale(pygame.image.load('assets/70.png'), (130, 200)),
-            1: pygame.transform.scale(pygame.image.load('assets/71.png'), (130, 200)),
-            2: pygame.transform.scale(pygame.image.load('assets/72.png'), (130, 200)),
-            3: pygame.transform.scale(pygame.image.load('assets/73.png'), (130, 200))
-        }
-
-    def random_texture(self):
-        self.random_number = random.randint(0, 3)
-        return self.random_number
-
-    def get_surface(self):
-        self.number = self.random_texture()
-        return self.card[self.number]
+        super().__init__(value=7, image_paths=[
+            'assets/70.png',
+            'assets/71.png',
+            'assets/72.png',
+            'assets/73.png',
+        ])
 
 
 class Eight(Card):
     def __init__(self):
-        super().__init__(value=8)
-        self.number = None
-        self.random_number = None
-        self.card = {
-            0: pygame.transform.scale(pygame.image.load('assets/80.png'), (130, 200)),
-            1: pygame.transform.scale(pygame.image.load('assets/81.png'), (130, 200)),
-            2: pygame.transform.scale(pygame.image.load('assets/82.png'), (130, 200)),
-            3: pygame.transform.scale(pygame.image.load('assets/83.png'), (130, 200))
-        }
-
-    def random_texture(self):
-        self.random_number = random.randint(0, 3)
-        return self.random_number
-
-    def get_surface(self):
-        self.number = self.random_texture()
-        return self.card[self.number]
+        super().__init__(value=8, image_paths=[
+            'assets/80.png',
+            'assets/81.png',
+            'assets/82.png',
+            'assets/83.png',
+        ])
 
 
 class Nine(Card):
     def __init__(self):
-        super().__init__(value=9)
-        self.number = None
-        self.random_number = None
-        self.card = {
-            0: pygame.transform.scale(pygame.image.load('assets/90.png'), (130, 200)),
-            1: pygame.transform.scale(pygame.image.load('assets/91.png'), (130, 200)),
-            2: pygame.transform.scale(pygame.image.load('assets/92.png'), (130, 200)),
-            3: pygame.transform.scale(pygame.image.load('assets/93.png'), (130, 200))
-        }
-
-    def random_texture(self):
-        self.random_number = random.randint(0, 3)
-        return self.random_number
-
-    def get_surface(self):
-        self.number = self.random_texture()
-        return self.card[self.number]
+        super().__init__(value=9, image_paths=[
+            'assets/90.png',
+            'assets/91.png',
+            'assets/92.png',
+            'assets/93.png',
+        ])
 
 
 class Ten(Card):
     def __init__(self):
-        super().__init__(value=10)
-        self.number = None
-        self.random_number = None
-        self.card = {
-            0: pygame.transform.scale(pygame.image.load('assets/100.png'), (130, 200)),
-            1: pygame.transform.scale(pygame.image.load('assets/101.png'), (130, 200)),
-            2: pygame.transform.scale(pygame.image.load('assets/102.png'), (130, 200)),
-            3: pygame.transform.scale(pygame.image.load('assets/103.png'), (130, 200))
-        }
-
-    def random_texture(self):
-        self.random_number = random.randint(0, 3)
-        return self.random_number
-
-    def get_surface(self):
-        self.number = self.random_texture()
-        return self.card[self.number]
+        super().__init__(value=10, image_paths=[
+            'assets/100.png',
+            'assets/101.png',
+            'assets/102.png',
+            'assets/103.png',
+        ])
 
 
 class Jack(Card):
     def __init__(self):
-        super().__init__(value=10)
-        self.number = None
-        self.random_number = None
-        self.card = {
-            0: pygame.transform.scale(pygame.image.load('assets/110.png'), (130, 200)),
-            1: pygame.transform.scale(pygame.image.load('assets/111.png'), (130, 200)),
-            2: pygame.transform.scale(pygame.image.load('assets/112.png'), (130, 200)),
-            3: pygame.transform.scale(pygame.image.load('assets/113.png'), (130, 200))
-        }
-
-    def random_texture(self):
-        self.random_number = random.randint(0, 3)
-        return self.random_number
-
-    def get_surface(self):
-        self.number = self.random_texture()
-        return self.card[self.number]
+        super().__init__(value=10, image_paths=[
+            'assets/110.png',
+            'assets/111.png',
+            'assets/112.png',
+            'assets/113.png',
+        ])
 
 
 class Queen(Card):
     def __init__(self):
-        super().__init__(value=10)
-        self.number = None
-        self.random_number = None
-        self.card = {
-            0: pygame.transform.scale(pygame.image.load('assets/120.png'), (130, 200)),
-            1: pygame.transform.scale(pygame.image.load('assets/121.png'), (130, 200)),
-            2: pygame.transform.scale(pygame.image.load('assets/122.png'), (130, 200)),
-            3: pygame.transform.scale(pygame.image.load('assets/123.png'), (130, 200))
-        }
-
-    def random_texture(self):
-        self.random_number = random.randint(0, 3)
-        return self.random_number
-
-    def get_surface(self):
-        self.number = self.random_texture()
-        return self.card[self.number]
+        super().__init__(value=10, image_paths=[
+            'assets/120.png',
+            'assets/121.png',
+            'assets/122.png',
+            'assets/123.png',
+        ])
 
 
 class King(Card):
     def __init__(self):
-        super().__init__(value=10)
-        self.number = None
-        self.random_number = None
-        self.card = {
-            0: pygame.transform.scale(pygame.image.load('assets/130.png'), (130, 200)),
-            1: pygame.transform.scale(pygame.image.load('assets/131.png'), (130, 200)),
-            2: pygame.transform.scale(pygame.image.load('assets/132.png'), (130, 200)),
-            3: pygame.transform.scale(pygame.image.load('assets/133.png'), (130, 200))
-        }
-
-    def random_texture(self):
-        self.random_number = random.randint(0, 3)
-        return self.random_number
-
-    def get_surface(self):
-        self.number = self.random_texture()
-        return self.card[self.number]
+        super().__init__(value=10, image_paths=[
+            'assets/130.png',
+            'assets/131.png',
+            'assets/132.png',
+            'assets/133.png',
+        ])
