@@ -1,6 +1,7 @@
 import pygame
 import sys
 from game import Game
+import time
 
 pygame.init()
 
@@ -21,73 +22,82 @@ screen.fill(DARK_GREEN)
 GAME_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(GAME_UPDATE, 600)
 
-running = True
+player_hand_value = 0
+dealer_hand_value = 0
 
-game.dealer_draw_face_up(screen)
-game.dealer_draw_face_down(screen)
-game.player_draw_card_one(screen)
-game.player_draw_card_two(screen)
+def draw_cards():
+    game.dealer_draw_face_up(screen)
+    game.dealer_draw_face_down(screen)
+    game.player_draw_card_one(screen)
+    game.player_draw_card_two(screen)
 
-# Controls
-title_surface = title_font.render("Press Space To Stand", True, TITLE_COLOR)
-screen.blit(title_surface, (100, 660))
-title_surface = title_font.render("Press Enter To Hit", True, TITLE_COLOR)
-screen.blit(title_surface, (400, 660))
-title_surface = title_font.render("Dealer Stand on 17", True, TITLE_COLOR)
-screen.blit(title_surface, (400, 300))
+def get_value():
+    global player_hand_value, dealer_hand_value
+    player_hand_value = game.player_hand_value()
+    dealer_hand_value = game.dealer_hand_value()
 
-# Calculate and display initial hand values
-player_hand_value = game.player_hand_value()
-dealer_hand_value = game.dealer_hand_value()
-
-# Fill background rectangle for player hand value display
 def fill_player_screen():
     pygame.draw.rect(screen, DARK_GREEN, (50, 350, 250, 50))
-    player_hand_value_surface = title_font.render(f"Hand Value: {player_hand_value}", True, TITLE_COLOR)
+    player_hand_value_surface = title_font.render(f"Player Hand Value: {player_hand_value}", True, TITLE_COLOR)
     screen.blit(player_hand_value_surface, (50, 350))
 
-# Fill background rectangle for dealer hand value display
 def fill_dealer_screen():
     pygame.draw.rect(screen, DARK_GREEN, (50, 300, 250, 50))
-    dealer_hand_value_surface = title_font.render(f"Dealer: {dealer_hand_value}", True, TITLE_COLOR)
+    dealer_hand_value_surface = title_font.render(f"Dealer Hand Value: {dealer_hand_value}", True, TITLE_COLOR)
     screen.blit(dealer_hand_value_surface, (50, 300))
 
 fill_dealer_screen()
 fill_player_screen()
+draw_cards()
+get_value()
 
-while running:
+game_over = False
+
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:
-                game.next_card_draw_player(screen)
-                game.next_card = game.get_random_card()
-                player_hand_value = game.player_hand_value()
+            if game_over == False:
+                if event.key == pygame.K_RETURN:
+                    if player_hand_value > 21:
+                        game_surface = game_over_font.render("Dealer Wins!", True, RED)
+                        screen.blit(game_surface, (120, 240))
+                        game_over = True
+                    else:
+                        game.next_card_draw_player(screen)
+                        game.next_card = game.get_random_card()
+                        get_value()
+                        fill_player_screen()
+                elif event.key == pygame.K_SPACE:
+                    while dealer_hand_value < 21 or dealer_hand_value < player_hand_value:
+                        game.next_card_draw_dealer(screen)
+                        game.next_card = game.get_random_card()
+                        dealer_hand_value = game.dealer_hand_value()
+                        fill_dealer_screen()
+                        if dealer_hand_value == 17 or dealer_hand_value > player_hand_value:
+                            break
+                    if dealer_hand_value > player_hand_value and dealer_hand_value <= 21:
+                        game_surface = game_over_font.render("Dealer Wins!", True, RED)
+                        screen.blit(game_surface, (120, 240))
+                        game_over = True
+                    elif dealer_hand_value > 21:
+                        game_surface = game_over_font.render("Player Wins!", True, RED)
+                        screen.blit(game_surface, (120, 390))
+                        game_over = True
+                    elif dealer_hand_value == player_hand_value:
+                        game_surface = game_over_font.render("Draw!", True, RED)
+                        screen.blit(game_surface, (120, 390))
+                        game_over = True
+            elif event.key == pygame.K_TAB:
+                game = Game()
+                screen.fill(DARK_GREEN)
+                fill_dealer_screen()
                 fill_player_screen()
-                if player_hand_value > 21:
-                    game_surface = game_over_font.render("Dealer Wins!", True, RED)
-                    screen.blit(game_surface, (120, 240))
-                    break
-            if event.key == pygame.K_SPACE:
-                while dealer_hand_value < 21 or dealer_hand_value < player_hand_value:
-                    game.next_card_draw_dealer(screen)
-                    game.next_card = game.get_random_card()
-                    dealer_hand_value = game.dealer_hand_value()
-                    fill_dealer_screen()
-                    if dealer_hand_value == 17 or dealer_hand_value > player_hand_value:
-                        break
-                if dealer_hand_value > player_hand_value and dealer_hand_value <= 21:
-                    game_surface = game_over_font.render("Dealer Wins!", True, RED)
-                    screen.blit(game_surface, (120, 240))
-                if dealer_hand_value > 21:
-                    game_surface = game_over_font.render("Player Wins!", True, RED)
-                    screen.blit(game_surface, (120, 390))
-                if dealer_hand_value == player_hand_value:
-                    game_surface = game_over_font.render("Draw!", True, RED)
-                    screen.blit(game_surface, (120, 390))
-                    screen.blit(game_surface, (120, 240))
+                draw_cards()
+                get_value()
+                game_over = False
 
     pygame.display.update()
     clock.tick(60)
