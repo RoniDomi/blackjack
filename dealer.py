@@ -1,7 +1,24 @@
-import cards
+from cards import Cards
+import random
 
 
 class Dealer:
     def __init__(self):
         self._cards = 0
         self._hand_value = 0
+        self._deck = Cards()
+        self._hand = list()
+    
+    def dealer_draw(self):
+        card = self._deck.draw()
+        face = random.choice(self._deck._faces)
+
+        card_value = self._deck.value(card)
+        self._hand_value += card_value
+
+        if card_value >= 10:
+            self._hand.append(f'{card} {face}')
+        else:
+            self._hand.append(f'{card_value}{face}')
+
+        return self._hand

@@ -23,4 +23,4 @@ class Player:
         else:
             self._hand.append(f'{card_value}{face}')
 
-        return
+        return self._hand

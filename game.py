@@ -5,6 +5,7 @@ class Game:
     def __init__(self):
         self._player_turn = True
         self._dealer_turn = False
+        self._round_over = False
         self.player = Player()
         self.dealer = Dealer()
 
@@ -16,3 +17,16 @@ class Game:
             self.player._hand_value -= 10
 
         return self.player._hand
+
+    def _dealer_start(self):
+        for i in range(2):
+            self.dealer.dealer_draw()
+
+        if self.dealer._hand_value > 21:
+            self.dealer._hand_value -= 10
+
+        self.dealer._hand.insert(1, self.dealer._deck._deck[0])
+
+        self.dealer._hand_value = '?'
+
+        return self.dealer._hand[:2]
